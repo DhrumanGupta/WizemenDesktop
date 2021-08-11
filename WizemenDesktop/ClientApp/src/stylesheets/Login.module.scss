@@ -1,0 +1,81 @@
+@import "Colors";
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 2rem;
+  color: $header;
+  margin-bottom: 2rem;
+}
+
+.formControl {
+  position: relative;
+  width: 70%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.inputContainer {
+  position: relative;
+  margin-bottom: 25px;
+  
+  & label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.1s;
+  }
+  
+  & input {
+    border: 0;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0 5px 0;
+    font-size: 16px;
+    color: #fff;
+    
+    &:focus {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #e74c3c;
+    }
+    
+    &::placeholder {
+      opacity: 0;
+    }
+    
+    &:focus ~ label,
+    &:not(:placeholder-shown) ~ label {
+      top: -12px;
+      font-size: 12px;
+    }
+  }
+  
+  & select {
+    margin-left: .7rem;
+    border-width: 0;
+    color: $text;
+    padding: .4rem;
+    background-color: $subMenu;
+    font-size: .85rem;
+    border-radius: 2px;
+  }
+}
+
+.rememberMe {
+  text-align: start;
+  margin-top: -.6rem;
+  
+  & input {
+    margin-right: .5rem;
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "executable": "WizemenDesktop",
+  "splashscreen": {
+    "imageFile": "/Assets/splash.gif"
+  },
+  "name": "WizemenDesktop",
+  "description": "Wizemen Client for Desktop",
+  "repository": "https://github.com/DhrumanGupta/WizemenDesktop",
+  "author": "Dhruman Gupta",
+  "singleInstance": true,
+  "environment": "Production",
+  "build": {
+    "appId": "com.WizemenDesktop.app",
+    "productName": "Wizemen Desktop",
+    "copyright": "Copyright © 2021",
+    "buildVersion": "0.1.0",
+    "compression": "maximum",
+    "win": {
+      "target": ["portable", "nsis"],
+      "icon": "bin/Assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "bin/Assets/icon.ico",
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "output": "../../../bin/Desktop"
+    },
+    "extraResources": [
+      {
+        "from": "./bin",
+        "to": "bin",
+        "filter": [ "**/*" ]
+      }
+    ],
+    "files": [
+      {
+        "from": "./ElectronHostHook/node_modules",
+        "to": "ElectronHostHook/node_modules",
+        "filter": [ "**/*" ]
+      },
+      "**/*"
+    ]
+  }
+}
