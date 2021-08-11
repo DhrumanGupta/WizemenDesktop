@@ -1,6 +1,7 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from '../stylesheets/Login.module.scss';
 import Button from "../components/Button";
+import axios from "axios";
 
 function Login(props) {
 	const emailRef = useRef(null);
@@ -8,22 +9,38 @@ function Login(props) {
 	const schoolRef = useRef(null);
 	const rememberMeRef = useRef(null);
 
+	const [error, setError] = useState('');
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const data = {
-			email: emailRef.current.value,
-			password: passwordRef.current.value,
-			schoolCode: schoolRef.current.value,
+			credentials: {
+				email: emailRef.current.value,
+				password: passwordRef.current.value,
+				schoolCode: Number(schoolRef.current.value)
+			},
 			rememberMe: rememberMeRef.current.checked
 		};
 		passwordRef.current.value = '';
 
+		axios
+			.post('/user/start', data)
+			.then(r => {
+				props.setLoggedIn(true);
+			})
+			.catch(e => {
+				setError("Invalid credentials")
+			})
 
 		console.log(data)
 	}
 
 	return (
 		<div className={styles.container}>
+			<p className={styles.error}>
+				{error}
+			</p>
+			
 			<p className={styles.header}>
 				Please Login
 			</p>

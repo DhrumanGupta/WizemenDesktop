@@ -2,8 +2,10 @@ namespace WizemenDesktop.Services
 {
     public interface IFileService
     {
-        void SaveData(string path, string data);
+        void SaveData(string fileName, string data);
 
-        string GetData(string path);
+        string GetData(string fileName);
+
+        void DeleteData(string fileName);
     }
 }

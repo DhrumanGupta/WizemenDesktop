@@ -1,6 +1,6 @@
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import Login from "./pages/Login";
@@ -10,25 +10,24 @@ export default function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	useEffect(() => {
-		axios.get('/home/loggedIn')
+		axios.get('/user/loggedIn')
 			.then(resp => {
 				setLoggedIn(resp.data);
 			})
 	}, []);
 
 	return (
-		<Router>
+		<React.Fragment>
 			<Header/>
 			{
 				loggedIn ?
 					<Layout>
-						<>
-							<Route exact path={'/'} component={Home}/>
-						</>
+						<Route exact path={'/'} component={Home}/>
 					</Layout>
 					:
-					<Login/>
+					<Login setLoggedIn={setLoggedIn}/>
 			}
-		</Router>
+		</React.Fragment>
+
 	);
 }

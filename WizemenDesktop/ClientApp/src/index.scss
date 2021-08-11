@@ -103,3 +103,33 @@ select:-webkit-autofill:focus {
     filter: brightness(.85);
   }
 }
+
+.bg-success {
+  background-color: $success;
+}
+
+.bg-warning {
+  background-color: $warning;
+}
+
+.bg-danger {
+  background-color: $danger;
+}
+
+.bg-primary {
+  background-color: $primary;
+}
+
+.text-header {
+  color: $header;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.card {
+  background-color: $subMenu;
+  padding: 1rem;
+  border-radius: 1rem;
+}

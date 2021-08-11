@@ -1,17 +1,19 @@
 import React from 'react';
-import {Switch} from 'react-router-dom';
 import Sidebar from "./Sidebar";
+import {Switch} from "react-router-dom";
 
 function Layout(props) {
 	return (
-		<Switch>
+		<React.Fragment>
 			<Sidebar/>
 			<main>
 				<div className={"container"}>
-					{props.children}
+					<Switch>
+						{props.children}
+					</Switch>
 				</div>
 			</main>
-		</Switch>
+		</React.Fragment>
 	);
 }
 
