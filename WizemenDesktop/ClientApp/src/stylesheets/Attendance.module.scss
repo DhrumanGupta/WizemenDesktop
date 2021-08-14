@@ -1,0 +1,45 @@
+@import "Colors";
+
+.attendanceContainer {
+  margin-top: 2rem;
+  min-width: 400px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.progressBarGroup {
+  margin: .5rem 0;
+  width: 80%;
+  //max-width: 400px;
+  height: 2rem;
+}
+
+.progressBarLabelGroup {
+  display: flex;
+  flex-direction: row;
+
+
+  & p {
+    flex-grow: 1;
+
+    &:last-child {
+      text-align: right;
+      flex-grow: 1;
+    }
+
+  }
+}
+
+.progressBar {
+  margin: 0.2rem 0;
+  background-color: $text;
+  height: 20%;
+}
+
+.progressBarFill {
+  height: 100%;
+  transition: width .7s ease-in-out;
+}

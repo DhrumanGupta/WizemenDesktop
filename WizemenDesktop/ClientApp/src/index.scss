@@ -49,7 +49,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-  width: 90%;
+  width: 100%;
 }
 
 @media (min-width: 576px) {
@@ -69,6 +69,18 @@ body::-webkit-scrollbar-thumb {
     max-width: 960px
   }
 }
+
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1060px
+  }
+}
+
+//@media (min-width: 1400px) {
+//  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+//    max-width: 1320px
+//  }
+//}
 
 // Remove the ugly auto fill color
 input:-webkit-autofill,
@@ -130,6 +142,6 @@ select:-webkit-autofill:focus {
 
 .card {
   background-color: $subMenu;
-  padding: 1rem;
-  border-radius: 1rem;
+  padding: 1em;
+  border-radius: 1em;
 }

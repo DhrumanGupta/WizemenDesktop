@@ -7,7 +7,7 @@ function Layout(props) {
 		<React.Fragment>
 			<Sidebar/>
 			<main>
-				<div className={"container"}>
+				<div className={"container"} style={{display: "flex"}}>
 					<Switch>
 						{props.children}
 					</Switch>

@@ -1,9 +1,9 @@
+using System.Linq;
 using System.Threading.Tasks;
 using ElectronNET.API;
 using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,11 +72,19 @@ namespace WizemenDesktop
                 Show = false,
                 Frame = false,
                 Icon = "Assets/icon",
+                WebPreferences = new WebPreferences
+                {
+                    ZoomFactor = 1,
+                    Webaudio = false,
+                    Webgl = false,
+                    ScrollBounce = true,
+                    DevTools = false
+                }
             });
             
             await browserWindow.WebContents.Session.ClearCacheAsync();
             browserWindow.RemoveMenu();
-            browserWindow.WebContents.OnCrashed += async (killed) =>
+            browserWindow.WebContents.OnCrashed += async _ =>
             {
                 var options = new MessageBoxOptions("This process has crashed.")
                 {
@@ -101,25 +109,30 @@ namespace WizemenDesktop
             {
                 browserWindow.Show();
                 browserWindow.Focus();
+                // browserWindow.WebContents.OpenDevTools();
             };
             
             browserWindow.OnClose += () => Electron.App.Quit();
+            Electron.App.WillQuit += _ => Task.Run(() => Electron.GlobalShortcut.UnregisterAll());
 
-            Electron.IpcMain.On("minimize", (args) => { browserWindow.Minimize(); });
+            AttachIpcListeners(browserWindow);
+        }
 
-            Electron.IpcMain.On("toggle-fullscreen", async (args) =>
+        private static void AttachIpcListeners(BrowserWindow browserWindow)
+        {
+            Electron.IpcMain.On("minimize", _ => { browserWindow.Minimize(); });
+
+            Electron.IpcMain.On("toggle-fullscreen", async _ =>
             {
                 var fullscreen = await browserWindow.IsMaximizedAsync();
                 if (fullscreen) browserWindow.Unmaximize();
                 else browserWindow.Maximize();
             });
 
-            Electron.IpcMain.On("quit", (args) => { browserWindow.Close(); });
-            
-            Electron.IpcMain.On("open-link", async (args) =>
-            {
-                await Electron.Shell.OpenExternalAsync(args.ToString());
-            });
+            Electron.IpcMain.On("quit", _ => { browserWindow.Close(); });
+
+            Electron.IpcMain.On("open-link",
+                async args => { await Electron.Shell.OpenExternalAsync(args.ToString()); });
         }
     }
 }

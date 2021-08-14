@@ -10,7 +10,7 @@
   "singleInstance": true,
   "environment": "Production",
   "build": {
-    "appId": "com.WizemenDesktop.app",
+    "appId": "com.wizemendesktop.app",
     "productName": "Wizemen Desktop",
     "copyright": "Copyright © 2021",
     "buildVersion": "0.1.0",

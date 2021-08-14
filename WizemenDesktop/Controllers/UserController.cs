@@ -1,4 +1,5 @@
 using System;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,10 +23,10 @@ namespace WizemenDesktop.Controllers
             _fileService = fileService;
             var credentialsData = _fileService.GetData(_credentialsPath);
             if (string.IsNullOrWhiteSpace(credentialsData)) return;
-            var credentials = JsonConvert.DeserializeObject<Credentials>(credentialsData);
 
             try
             {
+                var credentials = JsonConvert.DeserializeObject<Credentials>(credentialsData);
                 _client = WizemenClient.NewClientAsync(credentials).Result;
             }
             catch
@@ -41,7 +42,7 @@ namespace WizemenDesktop.Controllers
         {
             if (_client != null) return Conflict(new {message = "Already Initialized!"});
             if (loginDto.Credentials == null) return Conflict(new {message = "No credentials provided"});
-            
+
             try
             {
                 _client = await WizemenClient.NewClientAsync(loginDto.Credentials);
@@ -50,7 +51,7 @@ namespace WizemenDesktop.Controllers
             {
                 return Unauthorized();
             }
-
+            
             if (loginDto.RememberMe)
             {
                 _fileService.SaveData(_credentialsPath, JsonConvert.SerializeObject(loginDto.Credentials));
@@ -84,7 +85,18 @@ namespace WizemenDesktop.Controllers
             if (_client == null) return Unauthorized();
 
             var attendance = await _client.GetMasterAttendanceAsync();
+            
             return Ok(attendance);
+        }
+
+        [Route("schedule")]
+        [HttpGet]
+        public async Task<IActionResult> GetScheduleAsync()
+        {
+            if (_client == null) return Unauthorized();
+
+            var schedule = await _client.GetClassScheduleAsync();
+            return Ok(schedule);
         }
     }
 }

@@ -1,21 +1,20 @@
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace WizemenDesktop.Services
 {
     public class Base64FileService : IFileService
     {
-        private string _path;
+        private readonly string _path;
 
         public Base64FileService()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&
-                !RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-                !RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) return;
+            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            if (string.IsNullOrWhiteSpace(localPath))
+                localPath = "/";
             
-            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "WizemenDesktop");
+            _path = Path.Combine(localPath, "WizemenDesktop");
             if (!Directory.Exists(_path))
             {
                 Directory.CreateDirectory(_path);
@@ -40,7 +39,7 @@ namespace WizemenDesktop.Services
             var fullPath = Path.Combine(_path, fileName);
             if (File.Exists(fullPath)) File.Delete(fullPath);
         }
-
+        
         private static string ToBase64(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
