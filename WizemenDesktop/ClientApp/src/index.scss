@@ -49,24 +49,24 @@ body::-webkit-scrollbar-thumb {
 }
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-  width: 100%;
+  width: 95%;
 }
 
 @media (min-width: 576px) {
   .container, .container-sm {
-    max-width: 540px
+    max-width: 500px
   }
 }
 
 @media (min-width: 768px) {
   .container, .container-md, .container-sm {
-    max-width: 720px
+    max-width: 690px
   }
 }
 
 @media (min-width: 992px) {
   .container, .container-lg, .container-md, .container-sm {
-    max-width: 960px
+    max-width: 940px
   }
 }
 
@@ -76,11 +76,11 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-//@media (min-width: 1400px) {
-//  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
-//    max-width: 1320px
-//  }
-//}
+@media (min-width: 1550px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1300px
+  }
+}
 
 // Remove the ugly auto fill color
 input:-webkit-autofill,
@@ -105,6 +105,8 @@ select:-webkit-autofill:focus {
   border-radius: 5px;
   font-size: 1rem;
   transition: 350ms;
+  
+  margin: .5rem;
   
   &:hover{
     cursor: pointer;
@@ -134,6 +136,7 @@ select:-webkit-autofill:focus {
 
 .text-header {
   color: $header;
+  text-decoration: none;
 }
 
 .text-center {

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
+import Landing from "./pages/Landing";
 
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -23,7 +24,8 @@ export default function App() {
 			{
 				loggedIn ?
 					<Layout>
-						<Route exact path={'/'} component={Home}/>
+						<Route exact path={'/'} component={Landing}/>
+						<Route exact path={'/home'} component={Home}/>
 						<Route component={NotFound}/>
 					</Layout>
 					:

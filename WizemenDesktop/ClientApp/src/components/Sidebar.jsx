@@ -23,13 +23,13 @@ function Sidebar(props) {
 			<ul className={styles.navbarNav}>
 				
 				<li className={styles.logo}>
-					<Link to={"#"} className={styles.navLink}>
+					<NavLink exact to={"/"} className={styles.navLink} activeClassName={styles.active}>
 						<span className={styles.linkText}>Wizemen</span>
 						<FaAngleDoubleRight/>
-					</Link>
+					</NavLink>
 				</li>
 				
-				<NavItem to={'/'} icon={AiFillHome} text={"Home"}/>
+				<NavItem to={'/home'} icon={AiFillHome} text={"Home"}/>
 				<NavItem to={'/meetings'} icon={BsCameraVideoFill} text={"Meetings"}/>
 				<NavItem to={'/classes'} icon={BsPersonFill} text={"Classes"}/>
 				<NavItem to={'/settings'} icon={FiSettings} text={"Settings"}/>

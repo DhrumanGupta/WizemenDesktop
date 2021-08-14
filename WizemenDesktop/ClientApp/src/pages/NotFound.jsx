@@ -7,7 +7,7 @@ function NotFound() {
 			<h1 className={"text-header text-center"}>
 				Not found
 			</h1>
-			<Link to={'/'} className={"text-header"}>Home</Link>
+			<Link to={'/'} className={"text-header"}>Go Home</Link>
 		</div>
 	);
 }
