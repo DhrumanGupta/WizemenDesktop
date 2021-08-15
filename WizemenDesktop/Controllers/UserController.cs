@@ -78,6 +78,16 @@ namespace WizemenDesktop.Controllers
             return Ok(meetings);
         }
 
+        [Route("classes")]
+        [HttpGet]
+        public async Task<IActionResult> GetClassesAsync()
+        {
+            if (_client == null) return Unauthorized();
+
+            var classes = await _client.GetClassesAsync();
+            return Ok(classes);
+        }
+
         [Route("masterAttendance")]
         [HttpGet]
         public async Task<IActionResult> GetMasterAttendanceAsync()

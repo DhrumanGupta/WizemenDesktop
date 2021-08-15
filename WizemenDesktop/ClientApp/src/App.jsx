@@ -7,9 +7,11 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
+import Meetings from "./pages/Meetings";
+import Classes from "./pages/Classes";
 
 export default function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(undefined);
 
 	useEffect(() => {
 		axios.get('/user/loggedIn')
@@ -17,20 +19,36 @@ export default function App() {
 				setLoggedIn(resp.data);
 			})
 	}, []);
+	
+	let content;
+	
+	if (loggedIn === false) {
+		 content = <Login setLoggedIn={setLoggedIn}/>;
+	}
+	else if (loggedIn === true) {
+		content = (
+			<Layout>
+				<Route exact path={'/'} component={Landing}/>
+				<Route exact path={'/home'} component={Home}/>
+				<Route exact path={'/meetings'} component={Meetings}/>
+				<Route exact path={'/classes'} component={Classes}/>
+				<Route component={NotFound}/>
+			</Layout>
+		)
+	}
+	else {
+		content = <div>
+			<br/>
+			<br/>
+			<br/>
+			<h1 className={"text-header text-center"}>Loading..</h1>
+		</div>
+	}
 
 	return (
 		<React.Fragment>
 			<Header/>
-			{
-				loggedIn ?
-					<Layout>
-						<Route exact path={'/'} component={Landing}/>
-						<Route exact path={'/home'} component={Home}/>
-						<Route component={NotFound}/>
-					</Layout>
-					:
-					<Login setLoggedIn={setLoggedIn}/>
-			}
+			{content}
 		</React.Fragment>
 
 	);

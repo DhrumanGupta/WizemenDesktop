@@ -3,10 +3,10 @@ import styles from '../stylesheets/Sidebar.module.scss';
 import {AiFillHome} from "react-icons/ai";
 import {BsCameraVideoFill, BsPersonFill} from "react-icons/bs";
 import {FiSettings} from "react-icons/fi";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {FaAngleDoubleRight} from "react-icons/fa";
 
-function Sidebar(props) {
+function Sidebar() {
 	const NavItem = (props) => {
 		return (
 			<li className={styles.navItem}>

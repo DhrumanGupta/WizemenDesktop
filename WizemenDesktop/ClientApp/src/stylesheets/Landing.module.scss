@@ -16,4 +16,8 @@
 
 .btnGroup {
   display: flex;
+  
+  & a {
+    text-decoration: none;
+  }
 }
