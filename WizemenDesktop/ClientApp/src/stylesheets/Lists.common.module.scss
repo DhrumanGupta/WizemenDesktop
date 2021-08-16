@@ -1,0 +1,35 @@
+@import "Colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  & a {
+    text-decoration: none;
+    color: $text;
+    font-size: 0.9rem;
+    border-bottom: 1px solid $topBar;
+    padding: 1rem;
+    transition: background-color 250ms;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+  }
+}
+
+.header {
+  font-size: 1.1rem;
+  padding: 0.05rem 0;
+}
+
+.subHeader {
+  font-size: 1rem;
+}

@@ -3,6 +3,7 @@ import styles from '../stylesheets/Landing.module.scss';
 import {useSpring, animated, config, useTrail} from "react-spring";
 import Button from "../components/Button";
 import {Link} from "react-router-dom";
+import {Routes} from '../data/RoutesData';
 
 const ButtonTrail = ({data}) => {
 	const trail = useTrail(data.length, {
@@ -13,30 +14,15 @@ const ButtonTrail = ({data}) => {
 	return (
 		<div className={styles.btnGroup}>
 			{trail.map((style, index) => (
-				<animated.span style={style}>
+				<animated.span style={style} key={index}>
 					<Button>
-						<Link to={data.to} className={"text-header"}>{data[index].text}</Link>
+						<Link to={data[index].path} className={"text-header"}>{data[index].title}</Link>
 					</Button>
 				</animated.span>
 			))}
 		</div>
 	)
 }
-
-const buttons = [
-	{
-		text: "Home",
-		to: "/home"
-	},
-	{
-		text: "Meetings",
-		to: "/meetings"
-	},
-	{
-		text: "Classes",
-		to: "/classes"
-	}
-]
 
 function Landing() {
 	const animatedStylesIntro = useSpring({
@@ -50,7 +36,7 @@ function Landing() {
 			<animated.p className={`${styles.intro} text-header`} style={animatedStylesIntro}>
 				Wizemen Desktop
 			</animated.p>
-			<ButtonTrail data={buttons}/>
+			<ButtonTrail data={Routes}/>
 		</div>
 	);
 }

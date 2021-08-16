@@ -1,5 +1,4 @@
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
 import {Route} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
@@ -7,8 +6,7 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
-import Meetings from "./pages/Meetings";
-import Classes from "./pages/Classes";
+import {Routes} from "./data/RoutesData";
 
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(undefined);
@@ -19,24 +17,28 @@ export default function App() {
 				setLoggedIn(resp.data);
 			})
 	}, []);
-	
+
 	let content;
-	
+
 	if (loggedIn === false) {
-		 content = <Login setLoggedIn={setLoggedIn}/>;
-	}
-	else if (loggedIn === true) {
+		content = <Login setLoggedIn={setLoggedIn}/>;
+	} else if (loggedIn === true) {
 		content = (
 			<Layout>
 				<Route exact path={'/'} component={Landing}/>
-				<Route exact path={'/home'} component={Home}/>
-				<Route exact path={'/meetings'} component={Meetings}/>
-				<Route exact path={'/classes'} component={Classes}/>
+
+				{
+					Routes.map(route => {
+						return (
+							<Route key={route.path} exact path={route.path} component={route.page}/>
+						)
+					})
+				}
+
 				<Route component={NotFound}/>
 			</Layout>
 		)
-	}
-	else {
+	} else {
 		content = <div>
 			<br/>
 			<br/>
@@ -50,6 +52,5 @@ export default function App() {
 			<Header/>
 			{content}
 		</React.Fragment>
-
 	);
 }

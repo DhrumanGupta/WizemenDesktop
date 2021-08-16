@@ -147,3 +147,11 @@ select:-webkit-autofill:focus {
   padding: 1em;
   border-radius: 1em;
 }
+
+.message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+}

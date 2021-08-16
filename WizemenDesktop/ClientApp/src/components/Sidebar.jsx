@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from '../stylesheets/Sidebar.module.scss';
-import {AiFillHome} from "react-icons/ai";
-import {BsCameraVideoFill, BsPersonFill} from "react-icons/bs";
-import {FiSettings} from "react-icons/fi";
 import {NavLink} from "react-router-dom";
+import {Routes} from "../data/RoutesData";
 import {FaAngleDoubleRight} from "react-icons/fa";
+import {FiSettings} from "react-icons/fi";
 
 function Sidebar() {
 	const NavItem = (props) => {
@@ -28,10 +27,15 @@ function Sidebar() {
 						<FaAngleDoubleRight/>
 					</NavLink>
 				</li>
+
+				{
+					Routes.map(route => {
+						return (
+							<NavItem key={route.path} to={route.path} text={route.title} icon={route.icon}/>
+						)
+					})
+				}
 				
-				<NavItem to={'/home'} icon={AiFillHome} text={"Home"}/>
-				<NavItem to={'/meetings'} icon={BsCameraVideoFill} text={"Meetings"}/>
-				<NavItem to={'/classes'} icon={BsPersonFill} text={"Classes"}/>
 				<NavItem to={'/settings'} icon={FiSettings} text={"Settings"}/>
 			</ul>
 		</nav>
