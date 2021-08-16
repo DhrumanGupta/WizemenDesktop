@@ -5,12 +5,27 @@ import {useEffect, useState} from "react";
 
 const MasterAttendance = () => {
 	const [masterAttendance, setMasterAttendance] = useState({totalDays: 1, present: 0, absent: 0, imperfect: 0});
+	let source = axios.CancelToken.source();
 
+	let unmounted = false;
+	const setData = (obj) => {
+		if (!unmounted) {
+			setMasterAttendance(obj)
+		}
+	}
+	
 	useEffect(() => {
 		axios.get('/user/masterAttendance')
 			.then(resp => {
-				setMasterAttendance(resp.data);
+				setData(resp.data);
 			})
+
+		return (() => {
+			if (source) {
+				unmounted = true;
+				source.cancel("Landing Component got unmounted");
+			}
+		});
 	}, []);
 
 	const presentPercentage = Math.round((masterAttendance.present / masterAttendance.totalDays) * 100);

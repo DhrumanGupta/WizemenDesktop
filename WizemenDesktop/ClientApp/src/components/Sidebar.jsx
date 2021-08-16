@@ -9,7 +9,7 @@ function Sidebar() {
 	const NavItem = (props) => {
 		return (
 			<li className={styles.navItem}>
-				<NavLink exact to={props.to} className={styles.navLink} activeClassName={styles.active}>
+				<NavLink exact={props.exact} to={props.to} className={styles.navLink} activeClassName={styles.active}>
 					<props.icon/>
 					<span className={`${styles.linkText}`}>{props.text}</span>
 				</NavLink>
@@ -31,7 +31,7 @@ function Sidebar() {
 				{
 					Routes.map(route => {
 						return (
-							<NavItem key={route.path} to={route.path} text={route.title} icon={route.icon}/>
+							<NavItem exact={route.sidebarExact} key={route.path} to={route.path} text={route.title} icon={route.icon}/>
 						)
 					})
 				}

@@ -4,28 +4,42 @@ import axios from "axios";
 import listStyles from '../stylesheets/Lists.common.module.scss';
 
 export default function Classes() {
+	let source = axios.CancelToken.source();
 	const [classData, setClassData] = useState({loading: true, classes: undefined, error: false});
 
+	let unmounted = false;
+	const setData = (obj) => {
+		if (!unmounted) {
+			setClassData(obj)
+		}
+	}
+	
 	useEffect(() => {
 		axios
 			.get('/user/classes')
 			.then(resp => {
 				// Sort all classes by id
-				resp.data.sort((a, b) => (a.classId > b.classId) ? 1 : -1)
-				setClassData({
+				resp.data.sort((a, b) => (a.id > b.id) ? 1 : -1)
+				setData({
 					loading: false,
 					classes: resp.data,
 					error: false
 				})
 			})
 			.catch(() => {
-				setClassData({
+				setData({
 					loading: false,
 					classes: undefined,
 					error: true
 				})
 			})
-
+		
+		return (() => {
+			if (source) {
+				unmounted = true;
+				source.cancel("Landing Component got unmounted");
+			}
+		});
 	}, []);
 
 
@@ -55,10 +69,9 @@ export default function Classes() {
 			{
 				classData.classes.map(item => {
 					return (
-						<Link key={item.classId} to={`/classes/${item.classId}`}>
-							<p className={`text-header ${listStyles.header}`}>{item.subject} ({item.course})</p>
-							<p className={listStyles.subHeader}>{item.teacherName} ({item.classCode})</p>
-								{/*{JSON.stringify(item)}*/}
+						<Link key={item.id} to={`/classes/${item.id}`}>
+							<p className={`text-header ${listStyles.header}`}>{item.subject} ({item.name})</p>
+							<p className={listStyles.subHeader}>{item.teacherName} ({item.code})</p>
 							</Link>
 					);
 				})

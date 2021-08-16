@@ -42,18 +42,32 @@ function Schedule(props) {
 	const [scheduleData, setScheduleData] = useState({loading: true, schedule: undefined, error: false});
 	const [meetings, setMeetings] = useState([]);
 
+	let source = axios.CancelToken.source();
+	let unmounted = false;
+	const setDataSchedule = (obj) => {
+		if (!unmounted) {
+			setScheduleData(obj)
+		}
+	}
+
+	const setDataMeetings = (obj) => {
+		if (!unmounted) {
+			setMeetings(obj)
+		}
+	}
+
 	useEffect(() => {
 		axios
 			.get('/user/schedule')
 			.then(x => {
-				setScheduleData({
+				setDataSchedule({
 					loading: false,
 					schedule: x.data,
 					error: false
 				})
 			})
 			.catch(e => {
-				setScheduleData({
+				setDataSchedule({
 					loading: false,
 					schedule: [],
 					error: true
@@ -64,12 +78,19 @@ function Schedule(props) {
 			.get('/user/meetings')
 			.then(x => {
 				if (x.data.length > 0) {
-					setMeetings(x.data)
+					setDataMeetings(x.data)
 				}
 			})
 			.catch(e => {
-				setMeetings([])
+				setDataMeetings([])
 			})
+
+		return (() => {
+			if (source) {
+				unmounted = true;
+				source.cancel("Landing Component got unmounted");
+			}
+		});
 	}, []);
 
 	if (scheduleData.loading) {
@@ -146,12 +167,12 @@ function Schedule(props) {
 										return (
 											<div key={weekday}>
 												<p>
-													{obj?.subject}
+													{obj?.subject ? obj?.subject : "N/A"}
 													{
 														meeting && <React.Fragment>
 															<br/>
 															<a href={meeting?.joinUrl} target={"_blank"} rel="noreferrer"
-															   className={styles.joinUrl}>Join ({meeting?.topic?.substr(0, 6)}..)</a>
+															   className={styles.joinUrl}>Join ({meeting?.topic?.substr(0, 7)}..)</a>
 														</React.Fragment>
 													}
 												</p>

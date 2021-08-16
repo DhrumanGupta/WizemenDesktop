@@ -15,9 +15,11 @@ const ButtonTrail = ({data}) => {
 		<div className={styles.btnGroup}>
 			{trail.map((style, index) => (
 				<animated.span style={style} key={index}>
-					<Button>
-						<Link to={data[index].path} className={"text-header"}>{data[index].title}</Link>
-					</Button>
+					<Link to={data[index].path} className={"text-header"}>
+						<Button>
+							{data[index].title}
+						</Button>
+					</Link>
 				</animated.span>
 			))}
 		</div>

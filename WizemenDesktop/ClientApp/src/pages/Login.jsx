@@ -28,11 +28,9 @@ function Login(props) {
 			.then(r => {
 				props.setLoggedIn(true);
 			})
-			.catch(e => {
+			.catch(() => {
 				setError("Invalid credentials")
 			})
-
-		console.log(data)
 	}
 
 	return (

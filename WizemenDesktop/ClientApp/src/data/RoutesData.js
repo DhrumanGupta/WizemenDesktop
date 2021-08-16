@@ -21,6 +21,7 @@ export const Routes = [
 		title: "Classes",
 		path: "/classes",
 		icon: BsFillPersonFill,
-		page: Classes
+		page: Classes,
+		sidebarExact: false
 	}
 ]

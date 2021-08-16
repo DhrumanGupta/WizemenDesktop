@@ -4,30 +4,43 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 
 function Meetings() {
+	let source = axios.CancelToken.source();
 	const [meetingData, setMeetingData] = useState({loading: true, meetings: undefined, error: false});
 
+	let unmounted = false;
+	const setData = (obj) => {
+		if (!unmounted) {
+			setMeetingData(obj)
+		}
+	}
+
 	useEffect(() => {
-		
 		axios
 			.get('/user/meetings')
 			.then(resp => {
-				setMeetingData({
+				setData({
 					loading: false,
 					meetings: resp.data,
 					error: false
 				})
 			})
 			.catch(() => {
-				setMeetingData({
+				setData({
 					loading: false,
 					meetings: undefined,
 					error: true
 				})
 			})
-		
+
+		return (() => {
+			if (source) {
+				unmounted = true;
+				source.cancel("Landing Component got unmounted");
+			}
+		});
 	}, []);
-	
-	
+
+
 	if (meetingData.loading) {
 		return (
 			<div className={"message-container"}>
@@ -46,8 +59,6 @@ function Meetings() {
 			</div>
 		)
 	}
-	
-	console.log(meetingData.meetings)
 
 	return (
 		<div className={listStyles.container}>

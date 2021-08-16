@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import {Routes} from "./data/RoutesData";
+import Class from "./pages/Class";
 
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(undefined);
@@ -27,13 +28,11 @@ export default function App() {
 			<Layout>
 				<Route exact path={'/'} component={Landing}/>
 
-				{
-					Routes.map(route => {
-						return (
-							<Route key={route.path} exact path={route.path} component={route.page}/>
-						)
-					})
-				}
+				{Routes.map(route =>
+					<Route key={route.path} exact path={route.path} component={route.page}/>
+				)}
+				
+				<Route exact path={'/classes/:id'} component={Class}/>
 
 				<Route component={NotFound}/>
 			</Layout>

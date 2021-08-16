@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +108,22 @@ namespace WizemenDesktop.Controllers
 
             var schedule = await _client.GetClassScheduleAsync();
             return Ok(schedule);
+        }
+
+        [Route("classes/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> GetClassDataAsync(int id)
+        {
+            var classes = await _client.GetClassesAsync();
+            var classObj = classes.FirstOrDefault(x => x.Id == id) ?? await _client.GetClass(id);
+            var teacherObj = await _client.GetClassTeacherAsync(id);
+            var students = await _client.GetStudentsInClass(id);
+            return Ok(new 
+            {
+                Class = classObj,
+                Teacher = teacherObj,
+                Students = students
+            });
         }
     }
 }

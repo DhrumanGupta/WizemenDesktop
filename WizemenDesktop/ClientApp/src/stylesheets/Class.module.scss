@@ -1,0 +1,40 @@
+@import "Colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  word-break: break-word;
+  width: 100%;
+}
+
+.students {
+  margin-top: 2rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.student {
+  display: flex;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+}
+
+.studentImg {
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  margin-right: 1rem;
+
+  & img {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    object-position: 0 0;
+  }
+}
