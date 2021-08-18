@@ -15,7 +15,7 @@ function Class() {
 			setClassData(obj)
 		}
 	}
-	
+
 	useEffect(() => {
 		axios
 			.get(`/user/classes/${id}`)
@@ -61,21 +61,42 @@ function Class() {
 			</div>
 		)
 	}
-	
+
 	const {class: classObj, students: studentsObj, teacher: teacherObj} = classData.data;
-	
+
 	return (
 		<div className={styles.container}>
 			<h1 className={"text-header"}>{classObj.subject} ({classObj.code})</h1>
 			<h3>{teacherObj.name} ({teacherObj.email ? teacherObj.email.toLowerCase() : "N/A"}, {teacherObj.phoneNumber ? teacherObj.phoneNumber : "N/A"})</h3>
-			
 			<div className={styles.students}>
+
+				<Card className={`${styles.student} ${styles.teacher}`}>
+					<span className={styles.studentImg}>
+						<img alt={`${teacherObj.name}'s Image`} src={teacherObj.imagePath} onError={(e) => {
+							e.target.onerror = null;
+							e.target.src = "https://psg.wizemen.net/images/useravatar.png"
+						}}/>
+						
+					</span>
+					<span>
+						<p className={"text-header"}>
+							{teacherObj.name}
+						</p>
+						<p>
+							{teacherObj.email}
+						</p>
+					</span>
+				</Card>
+
 				{
 					studentsObj.map(student => {
 						return (
 							<Card key={student.userId} className={styles.student}>
 								<span className={styles.studentImg}>
-									<img alt={`${student.firstName}'s Image`} src={`https://${student.imageUrl}`}/>
+									<img alt={`${student.firstName}'s Image`} src={`https://${student.imageUrl}`} onError={(e) => {
+										e.target.onerror = null;
+										e.target.src = "https://psg.wizemen.net/images/useravatar.png"
+									}}/>
 								</span>
 								<span>
 									<p className={"text-header"}>

@@ -1,5 +1,3 @@
-@import "Colors";
-
 $collapsedWidth: 5rem;
 $openWidth: 16rem;
 $transitionSpeed: 300ms;
@@ -14,7 +12,7 @@ main {
 
 .navbar {
   position: fixed;
-  background-color: $subMenu;
+  background-color: var(--subMenu);
   z-index: 15;
   transition: width $transitionSpeed ease;
   overflow: hidden;
@@ -50,16 +48,16 @@ main {
     min-width: 2rem;
     min-height: 2rem;
     margin: 0 1.5rem;
-    color: $primary;
+    color: var(--primary);
   }
 
   & span {
-    color: $primary;
+    color: var(--primary);
   }
 
   &:hover {
     filter: grayscale(0%);
-    background-color: $topBar;
+    background-color: var(--topBar);
   }
 }
 
@@ -78,7 +76,7 @@ main {
   margin-bottom: 1rem;
   text-align: center;
   letter-spacing: 0.2rem;
-  color: $primary;
+  color: var(--primary);
   font-size: 1.5rem;
   width: 100%;
 }

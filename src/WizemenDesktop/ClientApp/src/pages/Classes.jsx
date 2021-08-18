@@ -71,7 +71,7 @@ export default function Classes() {
 					return (
 						<Link key={item.id} to={`/classes/${item.id}`}>
 							<p className={`text-header ${listStyles.header}`}>{item.subject} ({item.name})</p>
-							<p className={listStyles.subHeader}>{item.teacherName} ({item.code})</p>
+							<p>{item.teacherName} ({item.code})</p>
 							</Link>
 					);
 				})

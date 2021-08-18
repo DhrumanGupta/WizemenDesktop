@@ -1,5 +1,3 @@
-@import "Colors";
-
 .attendanceContainer {
   margin-top: 2rem;
   min-width: 400px;
@@ -34,7 +32,7 @@
 
 .progressBar {
   margin: 0.2rem 0;
-  background-color: $text;
+  background-color: var(--text);
   height: 20%;
 }
 

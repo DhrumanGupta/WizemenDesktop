@@ -1,20 +1,18 @@
-@import "Colors";
-
 $borderRadius: .5rem;
 
 .scheduleContainer {
   margin-top: .5rem;
   display: grid;
   grid-template-columns: 2fr repeat(5, 3fr);
-  border-bottom: 1px solid $border;
-  border-left: 1px solid $border;
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
   grid-gap: 0;
   border-radius: $borderRadius;
   //width: 95%;
 
   & > div {
-    border-top: 1px solid $border;
-    border-right: 1px solid $border;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
     background-color: transparent;
     padding: .5rem;
     text-align: center;
@@ -39,5 +37,5 @@ $borderRadius: .5rem;
 }
 
 .joinUrl {
-  color: $primary !important;
+  color: var(--primary) !important;
 }

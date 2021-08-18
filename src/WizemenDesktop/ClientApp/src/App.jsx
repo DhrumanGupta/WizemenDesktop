@@ -8,16 +8,44 @@ import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import {Routes} from "./data/RoutesData";
 import Class from "./pages/Class";
+import {colors} from './data/Theme';
+
+const setStyles = ({dark, fontSize}) => {
+	const root = document.querySelector(":root")
+	document.querySelector("html").style.setProperty('font-size', `${fontSize}px`)
+
+	const keys = Object.keys(colors);
+	for (let i = 0; i < keys.length; i++) {
+		const currKey = keys[i];
+		root.style.setProperty(`--${currKey}`, dark ? colors[currKey].dark : colors[currKey].light)
+	}
+}
 
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(undefined);
+	const [settings, setSettings] = useState(undefined);
 
 	useEffect(() => {
-		axios.get('/user/loggedIn')
+		axios
+			.get('/user/loggedIn')
 			.then(resp => {
 				setLoggedIn(resp.data);
 			})
+			.catch(() => {
+			})
+
+		axios
+			.get('/user/settings')
+			.then(resp => {
+				setSettings(resp.data)
+			})
+			.catch(() => {
+			})
 	}, []);
+
+	if (settings) {
+		setStyles(settings)
+	}
 
 	let content;
 
@@ -31,7 +59,7 @@ export default function App() {
 				{Routes.map(route =>
 					<Route key={route.path} exact path={route.path} component={route.page}/>
 				)}
-				
+
 				<Route exact path={'/classes/:id'} component={Class}/>
 
 				<Route component={NotFound}/>

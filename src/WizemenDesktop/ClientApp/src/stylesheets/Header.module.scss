@@ -1,5 +1,3 @@
-@import 'Colors';
-
 $hoverColor: rgba(0, 0, 0, 0.5);
 $navbarHeight: 35px;
 
@@ -17,7 +15,7 @@ $navbarHeight: 35px;
 }
 
 .exit:hover {
-  background-color: $danger;
+  background-color: var(--danger);
 }
 
 .header {
@@ -30,11 +28,11 @@ $navbarHeight: 35px;
 }
 
 .navbar {
-  background-color: $topBar;
+  background-color: var(--topBar);
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: white;
+  color: var(--header);
   max-height: $navbarHeight;
   position: fixed;
   width: 100vw;

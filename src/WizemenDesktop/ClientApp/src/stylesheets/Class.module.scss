@@ -1,5 +1,3 @@
-@import "Colors";
-
 .container {
   display: flex;
   flex-direction: column;
@@ -17,11 +15,16 @@
 .student {
   display: flex;
 
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-  }
+  //&:hover,
+  //&:focus {
+  //  box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.5);
+  //  cursor: pointer;
+  //}
+}
+
+.teacher {
+  background-color: var(--topBar);
+  border: 1px solid var(--border);
 }
 
 .studentImg {

@@ -40,7 +40,7 @@ const MasterAttendance = () => {
 
 			<div className={styles.progressBarGroup}>
 				<div className={styles.progressBarLabelGroup}>
-					<p>Present:</p>
+					<p>Present: {masterAttendance.present}/{masterAttendance.totalDays}</p>
 					<p>{presentPercentage}%</p>
 				</div>
 				<div className={styles.progressBar}>
@@ -50,7 +50,7 @@ const MasterAttendance = () => {
 
 			<div className={styles.progressBarGroup}>
 				<div className={styles.progressBarLabelGroup}>
-					<p>Absent:</p>
+					<p>Absent: {masterAttendance.absent}/{masterAttendance.totalDays}</p>
 					<p>{absentPercentage}%</p>
 				</div>
 				<div className={styles.progressBar}>
@@ -60,7 +60,7 @@ const MasterAttendance = () => {
 
 			<div className={styles.progressBarGroup}>
 				<div className={styles.progressBarLabelGroup}>
-					<p>Imperfect:</p>
+					<p>Imperfect: {masterAttendance.imperfect}/{masterAttendance.totalDays}</p>
 					<p>{imperfectPercentage}%</p>
 				</div>
 				<div className={styles.progressBar}>

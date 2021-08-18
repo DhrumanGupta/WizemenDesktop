@@ -1,12 +1,11 @@
-using System;
 using System.Linq;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Wizemen.NET.Clients;
 using Wizemen.NET.Models;
 using WizemenDesktop.Dtos;
+using WizemenDesktop.Models;
 using WizemenDesktop.Services;
 
 namespace WizemenDesktop.Controllers
@@ -18,10 +17,16 @@ namespace WizemenDesktop.Controllers
         private static WizemenClient _client;
         private readonly IFileService _fileService;
         private const string _credentialsPath = "user.auth.file";
+        private const string _settingsPath = "user.settings.file";
 
         public UserController(IFileService fileService)
         {
             _fileService = fileService;
+            LoadCredentials();
+        }
+
+        private void LoadCredentials()
+        {
             var credentialsData = _fileService.GetData(_credentialsPath);
             if (string.IsNullOrWhiteSpace(credentialsData)) return;
 
@@ -32,10 +37,10 @@ namespace WizemenDesktop.Controllers
             }
             catch
             {
-                Console.WriteLine("Invalid saved credentials");
                 _fileService.DeleteData(_credentialsPath);
             }
         }
+        
 
         [Route("start")]
         [HttpPost]
@@ -52,7 +57,7 @@ namespace WizemenDesktop.Controllers
             {
                 return Unauthorized();
             }
-            
+
             if (loginDto.RememberMe)
             {
                 _fileService.SaveData(_credentialsPath, JsonConvert.SerializeObject(loginDto.Credentials));
@@ -66,6 +71,29 @@ namespace WizemenDesktop.Controllers
         public IActionResult IsLoggedIn()
         {
             return Ok(_client != null);
+        }
+
+        [Route("settings")]
+        [HttpGet]
+        public IActionResult GetSettings()
+        {
+            var data = _fileService.GetData(_settingsPath);
+            Settings settings;
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                settings = new Settings
+                {
+                    FontSize = 16,
+                    Dark = true
+                };
+                _fileService.SaveData(_settingsPath, JsonConvert.SerializeObject(settings));
+            }
+            else
+            {
+                settings = JsonConvert.DeserializeObject<Settings>(data);
+            }
+
+            return Ok(settings);
         }
 
         [Route("meetings")]
@@ -96,7 +124,7 @@ namespace WizemenDesktop.Controllers
             if (_client == null) return Unauthorized();
 
             var attendance = await _client.GetMasterAttendanceAsync();
-            
+
             return Ok(attendance);
         }
 
@@ -118,7 +146,7 @@ namespace WizemenDesktop.Controllers
             var classObj = classes.FirstOrDefault(x => x.Id == id) ?? await _client.GetClass(id);
             var teacherObj = await _client.GetClassTeacherAsync(id);
             var students = await _client.GetStudentsInClass(id);
-            return Ok(new 
+            return Ok(new
             {
                 Class = classObj,
                 Teacher = teacherObj,
