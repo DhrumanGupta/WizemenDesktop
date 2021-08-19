@@ -3,6 +3,8 @@ import {BsFillCameraVideoFill, BsFillPersonFill} from "react-icons/bs";
 import Home from "../pages/Home";
 import Meetings from "../pages/Meetings";
 import Classes from "../pages/Classes";
+import Settings from "../pages/Settings";
+import {FiSettings} from "react-icons/fi";
 
 export const Routes = [
 	{
@@ -23,5 +25,13 @@ export const Routes = [
 		icon: BsFillPersonFill,
 		page: Classes,
 		sidebarExact: false
+	},
+	{
+		title: "Settings",
+		path: "/settings",
+		icon: FiSettings,
+		page: Settings,
+		notAppExact: true,
+		excludeLanding: true
 	}
 ]

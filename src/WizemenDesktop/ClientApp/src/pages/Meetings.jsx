@@ -85,7 +85,7 @@ function Meetings() {
 					
 					const meetingTime = new Date(meeting.startTime);
 					const diffMinutes = (new Date() - meetingTime) / 60000;
-					const isCurrMeeting = diffMinutes < meeting.duration - 5 && diffMinutes >= -5;
+					const isCurrMeeting = diffMinutes < meeting.duration - 5 && diffMinutes >= -3;
 					
 					return (
 						<Link to={'#'} key={idx} className={`${styles.meetingContainer} text-header ${isCurrMeeting && styles.active}`} onClick={() => {
@@ -104,7 +104,6 @@ function Meetings() {
 								<p>Launch Meeting</p>
 								<FiArrowRight/>
 							</span>
-							{/*{JSON.stringify(meeting)}*/}
 						</Link>
 					);
 				})

@@ -84,7 +84,9 @@ namespace WizemenDesktop.Controllers
                 settings = new Settings
                 {
                     FontSize = 16,
-                    Dark = true
+                    Dark = true,
+                    NotifyMeetings = true,
+                    AutoLaunchMeetings = false
                 };
                 _fileService.SaveData(_settingsPath, JsonConvert.SerializeObject(settings));
             }
@@ -94,6 +96,14 @@ namespace WizemenDesktop.Controllers
             }
 
             return Ok(settings);
+        }
+
+        [Route("settings")]
+        [HttpPost]
+        public IActionResult UpdateSettings(Settings settings)
+        {
+            _fileService.SaveData(_settingsPath, JsonConvert.SerializeObject(settings));
+            return Ok();
         }
 
         [Route("meetings")]

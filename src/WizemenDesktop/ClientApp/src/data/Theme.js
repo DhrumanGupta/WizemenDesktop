@@ -20,15 +20,18 @@ export const colors = {
 	},
 	danger: {
 		dark: "#e73548",
+		light: "#e73548",
 	},
 	success: {
-		dark: "#5fce24"
+		dark: "#5fce24",
+		light: "#5fce24"
 	},
 	warning: {
-		dark: "#eeba28"
+		dark: "#eeba28",
+		light: "#eeba28"
 	},
 	header: {
-		dark: "#f5f5f5"
+		dark: "#f5f5f5",
 	},
 	text: {
 		dark: "#b3b8c1"

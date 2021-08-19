@@ -13,7 +13,7 @@ namespace WizemenDesktop.Services
 
             if (string.IsNullOrWhiteSpace(localPath))
                 localPath = "/";
-            
+
             _path = Path.Combine(localPath, "WizemenDesktop");
             if (!Directory.Exists(_path))
             {
@@ -39,17 +39,33 @@ namespace WizemenDesktop.Services
             var fullPath = Path.Combine(_path, fileName);
             if (File.Exists(fullPath)) File.Delete(fullPath);
         }
-        
+
         private static string ToBase64(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
+            try
+            {
+                var data = Convert.ToBase64String(plainTextBytes);
+                return data;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         private static string FromBase64(string base64EncodedData)
         {
             var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            try
+            {
+                var data = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+                return data;
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 }

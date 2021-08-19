@@ -27,7 +27,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text);
     transition: all 0.1s;
   }
@@ -38,7 +38,7 @@
     background: transparent;
     width: 100%;
     padding: 8px 0 5px 0;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text);
     
     &:focus {
@@ -54,7 +54,7 @@
     &:focus ~ label,
     &:not(:placeholder-shown) ~ label {
       top: -12px;
-      font-size: 12px;
+      font-size: 0.75rem;
     }
   }
   

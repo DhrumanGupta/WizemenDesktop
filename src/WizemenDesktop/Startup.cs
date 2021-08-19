@@ -1,4 +1,9 @@
+using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ElectronNET.API;
 using ElectronNET.API.Entities;
@@ -8,6 +13,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
 using WizemenDesktop.Services;
 
 namespace WizemenDesktop
@@ -59,11 +65,11 @@ namespace WizemenDesktop
 
             if (HybridSupport.IsElectronActive)
             {
-                ElectronBootstrap();
+                ElectronBootstrap(env);
             }
         }
 
-        private static async void ElectronBootstrap()
+        private static async void ElectronBootstrap(IHostEnvironment env)
         {
             var browserWindow = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
             {
@@ -81,7 +87,7 @@ namespace WizemenDesktop
                     DevTools = false
                 }
             });
-            
+
             await browserWindow.WebContents.Session.ClearCacheAsync();
             browserWindow.RemoveMenu();
             browserWindow.WebContents.OnCrashed += async _ =>
@@ -105,20 +111,20 @@ namespace WizemenDesktop
             };
 
 
-            browserWindow.OnReadyToShow += () =>
+            browserWindow.OnReadyToShow += async () =>
             {
                 browserWindow.Show();
                 browserWindow.Focus();
-                // browserWindow.WebContents.OpenDevTools();
+                Electron.App.SetAppUserModelId("Wizemen Desktop");
             };
-            
+
             browserWindow.OnClose += () => Electron.App.Quit();
             Electron.App.WillQuit += _ => Task.Run(() => Electron.GlobalShortcut.UnregisterAll());
 
-            AttachIpcListeners(browserWindow);
+            AttachIpcListeners(browserWindow, env);
         }
 
-        private static void AttachIpcListeners(BrowserWindow browserWindow)
+        private static void AttachIpcListeners(BrowserWindow browserWindow, IHostEnvironment env)
         {
             Electron.IpcMain.On("minimize", _ => { browserWindow.Minimize(); });
 
@@ -133,6 +139,29 @@ namespace WizemenDesktop
 
             Electron.IpcMain.On("open-link",
                 async args => { await Electron.Shell.OpenExternalAsync(args.ToString()); });
+
+            Electron.IpcMain.On("notification",
+                args =>
+                {
+                    var data = JObject.FromObject(args);
+
+                    if (!data.TryGetValue("title", StringComparison.InvariantCultureIgnoreCase, out var title)
+                        || !data.TryGetValue("content", StringComparison.InvariantCultureIgnoreCase,
+                            out var content)) return;
+
+                    var notification = new NotificationOptions(title.ToString(), content.ToString())
+                    {
+                        Icon = Path.Combine(env.ContentRootPath, "Assets/icon.png")
+                    };
+
+                    var link = data.GetValue("link");
+                    if (link != null)
+                    {
+                        notification.OnClick = async () => await Electron.Shell.OpenExternalAsync(link.ToString());
+                    }
+
+                    Electron.Notification.Show(notification);
+                });
         }
     }
 }

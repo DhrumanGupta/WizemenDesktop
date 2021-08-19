@@ -3,7 +3,6 @@ import styles from '../stylesheets/Sidebar.module.scss';
 import {NavLink} from "react-router-dom";
 import {Routes} from "../data/RoutesData";
 import {FaAngleDoubleRight} from "react-icons/fa";
-import {FiSettings} from "react-icons/fi";
 
 function Sidebar() {
 	const NavItem = (props) => {
@@ -35,8 +34,6 @@ function Sidebar() {
 						)
 					})
 				}
-				
-				<NavItem to={'/settings'} icon={FiSettings} text={"Settings"}/>
 			</ul>
 		</nav>
 	);

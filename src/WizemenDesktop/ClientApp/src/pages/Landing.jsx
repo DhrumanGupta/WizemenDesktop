@@ -6,11 +6,13 @@ import {Link} from "react-router-dom";
 import {Routes} from '../data/RoutesData';
 
 const ButtonTrail = ({data}) => {
+	data = data.filter(x => !x.excludeLanding)
 	const trail = useTrail(data.length, {
 		config: config.stiff,
 		from: {transform: "translateY(10vh)", opacity: 0.5},
 		to: {transform: "translateY(0%)", opacity: 1},
 	})
+	
 	return (
 		<div className={styles.btnGroup}>
 			{trail.map((style, index) => (
