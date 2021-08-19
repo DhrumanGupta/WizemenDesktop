@@ -10,6 +10,7 @@ import {Routes} from "./data/RoutesData";
 import Class from "./pages/Class";
 import {colors} from './data/Theme';
 import {SettingsProvider} from "./components/contexts/settingsContext";
+import {UserProvider} from "./components/contexts/userContext";
 
 const setStyles = (dark, fontSize) => {
 	const root = document.querySelector(":root")
@@ -33,8 +34,8 @@ const autoLaunchMeetings = (meetings, shouldLaunch) => {
 				existingAutoLaunches.splice(index, 1)
 			}
 		})
-		
-		
+
+
 		const currTime = new Date().getTime();
 
 		for (let i = 0; i < meetings.length; i++) {
@@ -51,7 +52,7 @@ const autoLaunchMeetings = (meetings, shouldLaunch) => {
 						title: `Meeting launched`,
 						content: `Meeting: ${currMeeting.topic} was automatically launched`
 					})
-					
+
 				}, msDiff)
 			})
 		}
@@ -73,14 +74,14 @@ const notifyMeetings = (meetings, shouldNotify) => {
 				existingNotifications.splice(index, 1)
 			}
 		})
-		
+
 		const currTime = new Date().getTime();
 
 		for (let i = 0; i < meetings.length; i++) {
 			const currMeeting = meetings[i]
 			const msDiff = new Date(currMeeting.startTime).getTime() - currTime
 			const sendBeforeMs = 300000; // 300000 == 5min
-			
+
 			if (msDiff < sendBeforeMs) continue;
 			if (existingNotifications.find(x => x.joinUrl === currMeeting.joinUrl)) continue;
 
@@ -116,7 +117,7 @@ export default function App() {
 			})
 			.catch(() => {
 			})
-		
+
 		let identifier;
 		const fetchData = () => {
 			axios
@@ -126,12 +127,12 @@ export default function App() {
 				})
 				.catch(() => {
 				})
-			
+
 			identifier = setTimeout(fetchData, 600000)
 		}
-		
+
 		fetchData()
-		
+
 		axios
 			.get('/user/settings')
 			.then(resp => {
@@ -158,10 +159,10 @@ export default function App() {
 		axios
 			.post('/user/settings', settings)
 			.then(() => {
-				setSettings(settings)
 			})
 			.catch(() => {
 			})
+		setSettings(settings)
 	}
 
 	let content;
@@ -191,9 +192,12 @@ export default function App() {
 	return (
 		<React.Fragment>
 			<Header/>
-			<SettingsProvider value={{settings, updateThenSetSettings}}>
-				{content}
-			</SettingsProvider>
+
+			<UserProvider value={setLoggedIn}>
+				<SettingsProvider value={{settings, updateThenSetSettings}}>
+					{content}
+				</SettingsProvider>
+			</UserProvider>
 		</React.Fragment>
 	);
 }

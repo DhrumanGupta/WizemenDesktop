@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import listStyles from '../stylesheets/Lists.common.module.scss';
+import {openExternalLink} from "../utils/HybridHelpers";
 
 export default function Classes() {
 	let source = axios.CancelToken.source();
@@ -57,7 +58,7 @@ export default function Classes() {
 				<h1>There was an error loading your classes!</h1>
 				<p>Please report the error
 					<Link to={'#'} className={"text-header"} onClick={() => {
-						window.electron.ipcRenderer.send('open-link', 'https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
+						openExternalLink('https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
 					}}>here</Link> (It helps out a lot, and all reports are greatly appreciated!)
 				</p>
 			</div>

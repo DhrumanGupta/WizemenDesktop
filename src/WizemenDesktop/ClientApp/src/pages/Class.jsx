@@ -3,6 +3,7 @@ import {Link, useParams} from 'react-router-dom';
 import axios from "axios";
 import styles from "../stylesheets/Class.module.scss";
 import Card from "../components/Card";
+import {openExternalLink} from "../utils/HybridHelpers";
 
 function Class() {
 	let source = axios.CancelToken.source();
@@ -56,7 +57,7 @@ function Class() {
 			<div className={"message-container"}>
 				<h1>There was an error loading the class's data!</h1>
 				<p>Please report the error <Link to={'#'} className={"text-header"} onClick={() => {
-					window.electron.ipcRenderer.send('open-link', 'https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
+					openExternalLink('https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
 				}}>here</Link> (It helps out a lot, and all reports are greatly appreciated!)</p>
 			</div>
 		)

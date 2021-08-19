@@ -7,7 +7,6 @@
 .headerContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: 1rem;
   margin-top: 0.5rem;
   
@@ -69,4 +68,30 @@
   margin-top: -0.45rem;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
+}
+
+.logoutContainer {
+  width: 10rem;
+  & span {
+    margin: auto 0.6rem auto 0;
+  }
+}
+
+.contributorsContainer {
+  list-style: none;
+  margin-top: 0.3rem;
+  
+  & li {
+    margin-left: 0.5rem;
+    
+    margin-bottom: 0.2rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:before {
+      content: '- '
+    }
+  }
 }

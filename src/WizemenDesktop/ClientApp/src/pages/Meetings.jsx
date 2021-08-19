@@ -4,6 +4,7 @@ import styles from '../stylesheets/Meetings.module.scss';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {FiArrowRight} from "react-icons/fi";
+import {openExternalLink} from "../utils/HybridHelpers";
 
 function pad(input, length, padding) {
 	while ((input = input.toString()).length + (padding = padding.toString()).length < length) {
@@ -72,7 +73,7 @@ function Meetings() {
 			<div className={"message-container"}>
 				<h1>There was an error loading your meetings!</h1>
 				<p>Please report the error <Link to={'#'} className={"text-header"} onClick={() => {
-					window.electron.ipcRenderer.send('open-link', 'https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
+					openExternalLink('https://github.com/DhrumanGupta/WizemenDesktop/issues/new/choose')
 				}}>here</Link> (It helps out a lot, and all reports are greatly appreciated!)</p>
 			</div>
 		)
@@ -89,7 +90,7 @@ function Meetings() {
 					
 					return (
 						<Link to={'#'} key={idx} className={`${styles.meetingContainer} text-header ${isCurrMeeting && styles.active}`} onClick={() => {
-							window.electron.ipcRenderer.send('open-link', meeting.joinUrl)
+							openExternalLink(meeting.joinUrl)
 						}}>
 							<span>
 								<p className={`text-header ${listStyles.header}`}>{meeting.topic}</p>

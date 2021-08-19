@@ -3,6 +3,8 @@ import styles from "../stylesheets/Schedule.module.scss";
 import axios from "axios";
 import Card from "./Card";
 import {between} from "../utils/Helpers";
+import {Link} from "react-router-dom";
+import {openExternalLink} from "../utils/HybridHelpers";
 
 function compareValues(key) {
 	const order = 'asc';
@@ -171,8 +173,9 @@ function Schedule(props) {
 													{
 														meeting && <React.Fragment>
 															<br/>
-															<a href={meeting?.joinUrl} target={"_blank"} rel="noreferrer"
-															   className={styles.joinUrl}>Join ({meeting?.topic?.substr(0, 7)}..)</a>
+															<Link to={'#'} className={styles.joinUrl} onClick={() => {
+																openExternalLink(meeting.joinUrl)
+															}}>Join ({meeting?.topic?.substr(0, 7)}..)</Link>
 														</React.Fragment>
 													}
 												</p>

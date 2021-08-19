@@ -1,16 +1,16 @@
 {
   "executable": "WizemenDesktop",
   "splashscreen": {
-    "imageFile": "/Assets/splash.gif"
+    "imageFile": "bin/Assets/splash.gif"
   },
   "name": "WizemenDesktop",
-  "productName": "Wizemen Desktop",
   "description": "Wizemen Client for Desktop",
   "repository": "https://github.com/DhrumanGupta/WizemenDesktop",
   "author": "Dhruman Gupta",
   "singleInstance": true,
   "environment": "Production",
   "build": {
+    "productName": "Wizemen Desktop",
     "appId": "com.wizemendesktop.app",
     "copyright": "Copyright © 2021",
     "buildVersion": "0.1.0",
@@ -25,6 +25,19 @@
       "oneClick": false,
       "installerIcon": "bin/Assets/icon.ico",
       "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": [ "dmg" ],
+      "icon": "bin/Assets/icon.icns",
+      "category": "Education"
+    },
+    "dmg": {
+      "icon": "bin/Assets/icon.icns",
+      "title": "Wizemen Desktop"
+    },
+    "linux": {
+      "icon": "bin/Assets/icon_512x512.png",
+      "synopsis": "A desktop app for the wizemen portal"
     },
     "directories": {
       "output": "../../../bin/Desktop"

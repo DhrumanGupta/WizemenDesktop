@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import styles from '../stylesheets/Login.module.scss';
 import Button from "../components/Button";
 import axios from "axios";
+import {Redirect} from 'react-router-dom'
 
 function Login(props) {
 	const emailRef = useRef(null);
@@ -10,6 +11,7 @@ function Login(props) {
 	const rememberMeRef = useRef(null);
 
 	const [error, setError] = useState('');
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -26,11 +28,16 @@ function Login(props) {
 		axios
 			.post('/user/start', data)
 			.then(r => {
-				props.setLoggedIn(true);
+				setLoggedIn(true);
 			})
 			.catch(() => {
 				setError("Invalid credentials")
 			})
+	}
+
+	if (loggedIn) {
+		props.setLoggedIn(true)
+		return <Redirect to={'/'}/>
 	}
 
 	return (
@@ -38,7 +45,7 @@ function Login(props) {
 			<p className={styles.error}>
 				{error}
 			</p>
-			
+
 			<p className={styles.header}>
 				Please Login
 			</p>

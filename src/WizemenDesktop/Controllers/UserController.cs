@@ -66,6 +66,20 @@ namespace WizemenDesktop.Controllers
             return Ok();
         }
 
+        [Route("logout")]
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            if (_client == null)
+            {
+                return Conflict();
+            }
+            _client.Dispose();
+            _client = null;
+            _fileService.DeleteData(_credentialsPath);
+            return Ok();
+        }
+
         [Route("loggedIn")]
         [HttpGet]
         public IActionResult IsLoggedIn()

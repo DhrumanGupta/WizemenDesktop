@@ -6,7 +6,7 @@ The desktop app is currently in development. Beta 1.0 is almost ready to be rele
   
 <br>  
   
-### License
+### T&C
 The contributors and developers will be herein referred as “**developers**”, "**us**", or “**we**”.  
 The software, Wizemen Desktop will herein be referred as "**Software**".  
 

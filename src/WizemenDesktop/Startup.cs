@@ -111,7 +111,7 @@ namespace WizemenDesktop
             };
 
 
-            browserWindow.OnReadyToShow += async () =>
+            browserWindow.OnReadyToShow += () =>
             {
                 browserWindow.Show();
                 browserWindow.Focus();
