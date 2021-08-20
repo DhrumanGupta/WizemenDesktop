@@ -9,6 +9,13 @@ You can download the application file for the platforms below.
   
 Alternatively, you can head to the [releases section](https://github.com/DhrumanGupta/WizemenDesktop/releases) and download the file prefixed with you OS.  
 For example, windows users can download the file that starts with `Windows-`.   
+
+## Features as of now
+- Dark mode
+- Notify 5 minutes before a meeting
+- Automatically launch meetings
+- A much better UI than wizemen
+- Highlight current meeting when looking at all of them
   
 ## T&C
 The contributors and developers will be herein referred as “**developers**”, "**us**", or “**we**”.  
