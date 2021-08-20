@@ -36,8 +36,9 @@
       "title": "Wizemen Desktop"
     },
     "linux": {
-      "icon": "bin/Assets/icon_512x512.png",
-      "synopsis": "A desktop app for the wizemen portal"
+      "icon": "bin/Assets/512x512.png",
+      "synopsis": "A desktop app for the wizemen portal",
+	  "category": "Education"
     },
     "directories": {
       "output": "../../../bin/Desktop"
