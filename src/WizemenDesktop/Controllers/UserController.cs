@@ -35,18 +35,19 @@ namespace WizemenDesktop.Controllers
             _loading = true;
 
             if (_client != null) return;
-            
-            var credentialsData = _fileService.GetData(_credentialsPath);
-            if (string.IsNullOrWhiteSpace(credentialsData)) return;
 
-            try
+            var credentialsData = _fileService.GetData(_credentialsPath);
+            if (!string.IsNullOrWhiteSpace(credentialsData))
             {
-                var credentials = JsonConvert.DeserializeObject<Credentials>(credentialsData);
-                _client = WizemenClient.NewClientAsync(credentials).Result;
-            }
-            catch
-            {
-                _fileService.DeleteData(_credentialsPath);
+                try
+                {
+                    var credentials = JsonConvert.DeserializeObject<Credentials>(credentialsData);
+                    _client = WizemenClient.NewClientAsync(credentials).Result;
+                }
+                catch
+                {
+                    _fileService.DeleteData(_credentialsPath);
+                }
             }
 
             _loading = false;
@@ -99,8 +100,11 @@ namespace WizemenDesktop.Controllers
         {
             if (_loading)
             {
-                while (!_loaded) {}
+                while (!_loaded)
+                {
+                }
             }
+
             return Ok(_client != null);
         }
 
