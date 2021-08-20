@@ -1,7 +1,7 @@
 {
   "executable": "WizemenDesktop",
   "splashscreen": {
-    "imageFile": "bin/Assets/splash.gif"
+    "imageFile": "Assets/splash.gif"
   },
   "name": "WizemenDesktop",
   "description": "Wizemen Client for Desktop",

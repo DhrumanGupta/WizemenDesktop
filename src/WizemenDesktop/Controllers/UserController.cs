@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,8 +26,16 @@ namespace WizemenDesktop.Controllers
             LoadCredentials();
         }
 
+        private static bool _loaded;
+        private static bool _loading;
+
         private void LoadCredentials()
         {
+            if (_loading || _loaded) return;
+            _loading = true;
+
+            if (_client != null) return;
+            
             var credentialsData = _fileService.GetData(_credentialsPath);
             if (string.IsNullOrWhiteSpace(credentialsData)) return;
 
@@ -39,8 +48,11 @@ namespace WizemenDesktop.Controllers
             {
                 _fileService.DeleteData(_credentialsPath);
             }
+
+            _loading = false;
+            _loaded = true;
         }
-        
+
 
         [Route("start")]
         [HttpPost]
@@ -74,6 +86,7 @@ namespace WizemenDesktop.Controllers
             {
                 return Conflict();
             }
+
             _client.Dispose();
             _client = null;
             _fileService.DeleteData(_credentialsPath);
@@ -84,6 +97,10 @@ namespace WizemenDesktop.Controllers
         [HttpGet]
         public IActionResult IsLoggedIn()
         {
+            if (_loading)
+            {
+                while (!_loaded) {}
+            }
             return Ok(_client != null);
         }
 
