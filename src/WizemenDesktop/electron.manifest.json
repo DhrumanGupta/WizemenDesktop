@@ -13,7 +13,7 @@
     "productName": "Wizemen Desktop",
     "appId": "com.wizemendesktop.app",
     "copyright": "Copyright © 2021",
-    "buildVersion": "0.1.0",
+    "buildVersion": "0.1.1",
     "compression": "maximum",
     "win": {
       "target": [
