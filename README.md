@@ -2,7 +2,12 @@
 A desktop app to view your wizemen details. (Faster and more ergonomic than wizemen's website)  
 
 ## How to download?  
-Head to the [releases section](https://github.com/DhrumanGupta/WizemenDesktop/releases) and download the file prefixed with you OS.  
+You can download the application file for the platforms below.  
+- [Windows](https://github.com/DhrumanGupta/WizemenDesktop/releases/latest/download/Windows-Wizemen.Desktop.Setup.exe)
+- [MacOS](https://github.com/DhrumanGupta/WizemenDesktop/releases/latest/download/MacOS-Wizemen.Desktop.dmg)
+- [Linux](https://github.com/DhrumanGupta/WizemenDesktop/releases/latest/download/Linux-Wizemen.Desktop.AppImage) (Very slow launch time, needs to be fixed)
+  
+Alternatively, you can head to the [releases section](https://github.com/DhrumanGupta/WizemenDesktop/releases) and download the file prefixed with you OS.  
 For example, windows users can download the file that starts with `Windows-`.   
   
 ## T&C
