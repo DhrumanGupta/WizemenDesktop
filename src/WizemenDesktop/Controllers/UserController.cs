@@ -28,7 +28,6 @@ namespace WizemenDesktop.Controllers
 
         private static bool _loaded;
         private static bool _loading;
-
         private void LoadCredentials()
         {
             if (_loading || _loaded) return;
@@ -97,15 +96,10 @@ namespace WizemenDesktop.Controllers
 
         [Route("loggedIn")]
         [HttpGet]
-        public IActionResult IsLoggedIn()
+        public async Task<IActionResult> IsLoggedIn()
         {
-            if (_loading)
-            {
-                while (!_loaded)
-                {
-                }
-            }
-
+            if (!_loading) return Ok(_client != null);
+            while (!_loaded) await Task.Delay(50);
             return Ok(_client != null);
         }
 
