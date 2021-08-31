@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.intro {
+  text-align: center;
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.btnGroup {
+  display: flex;
+
+  & a {
+    text-decoration: none;
+  }
+}

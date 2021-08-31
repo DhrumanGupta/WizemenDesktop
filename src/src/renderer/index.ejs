@@ -2,14 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hello Electron React!</title>
+    <title>Wizemen Desktop</title>
   </head>
   <body>
     <div id="root"></div>
   </body>
   <script>
     window.electron.ipcRenderer.once('ipc-example', (arg) => {
-      // eslint-disable-next-line no-console
       console.log(arg);
     });
 
