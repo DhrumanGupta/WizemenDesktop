@@ -77,6 +77,8 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
+    minHeight: 728,
+    minWidth: 1024,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -89,6 +91,7 @@ const createWindow = async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+    mainWindow.removeMenu()
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {

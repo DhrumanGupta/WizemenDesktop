@@ -1449,6 +1449,13 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.15.tgz#6a9d143f7f4f49db2d782f9e1c8839a29b43ae23"
   integrity sha512-15spi3V28QdevleWBNXE4pIls3nFZmBbUGrW9IVPwiQczuSb9n76TCB4bsk8TSel+I1OkHEdPhu5QKMfY6rQHA==
 
+"@preciouswarrior/wiz.js@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@preciouswarrior/wiz.js/-/wiz.js-2.0.2.tgz#8974652b8f568fda48e2994ff45752f25692179b"
+  integrity sha512-FRd0YIW92XacuXD4vzzBov3QVWqi7L1jugquOf6ndum2tQVvD1M2UKpitrs0wJ2QiJRWrsFnbSv4HTe7miDqng==
+  dependencies:
+    axios "^0.21.1"
+
 "@react-spring/animated@~9.2.0":
   version "9.2.4"
   resolved "https://registry.yarnpkg.com/@react-spring/animated/-/animated-9.2.4.tgz#062ecc0fdfef89f2541a42d8500428b70035f879"
